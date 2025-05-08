@@ -98,7 +98,7 @@
     WantedBy=multi-user.target
     EOF
     sudo systemctl daemon-reload
-    sudo systemctl enable erigon.service
+    sudo systemctl enable sepolia.service
     ```
 - **Create config file**
    ```
