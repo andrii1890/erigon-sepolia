@@ -104,9 +104,7 @@
    ```
    tee $HOME/ethereum/sepolia/eth1/config/config.yaml > /dev/null << EOF
    datadir : '$HOME/ethereum/sepolia/eth1/data/'
-   port : "30403"
    chain : "sepolia"
-   identity : "rpc ethereum sepolia"
    prune.mode : "archive"
    nat : "any"
    http : "true"
@@ -127,12 +125,12 @@
    beacon.api.cors.allow-origins : "*"
    beacon.api : ["beacon","builder","config","debug","node","lighthouse"]
    private.api.addr : "localhost:9090"
+   state.cache : "1024"
    caplin.blobs-no-pruning : "true"
    caplin.states-archive : "true"
    caplin.blocks-archive : "true"
    caplin.blobs-archive : "true"
    caplin.blobs-immediate-backfill : "true"
-   state.cache : "1024"
    netrestrict : ["10.0.0.0/8","172.16.0.0/12","100.64.0.0/10","198.18.0.0/15","169.254.0.0/16","172.16.0.0/12","192.0.2.0/24","192.88.99.0/24","192.168.0.0/16","198.18.0.0/15","198.51.100.0/24","203.0.113.0/24","224.0.0.0/4","240.0.0.0/4","192.0.0.0/24","0.0.0.0/8","255.255.255.255/32"]
    #txpool.globalbasefeeslots : "100000"
    #txpool.globalqueue : "100000"
