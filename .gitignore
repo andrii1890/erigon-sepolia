@@ -1,0 +1,6 @@
+.env
+keystore-*
+.DS_Store
+data/archive/erigon/
+data/full/erigon/
+data/minimal/erigon/

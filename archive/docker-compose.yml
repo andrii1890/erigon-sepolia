@@ -1,0 +1,115 @@
+#Created by st.Game
+#https://github.com/andrii1890
+#Find me at Discord: st_Game and Telegram: @Andrii1890
+#version: "0.1"
+
+services:
+  erigon:
+    image: erigontech/erigon:latest
+    container_name: erigon
+    ports:
+      - "30303:30303/tcp" # P2P TCP
+      - "30303:30303/udp" # P2P UDP
+      - "4000:4000/tcp"   # Caplin TCP
+      - "8545:8545/tcp"   # HTTP RPC
+      - "8546:8546/tcp"   # WebSocket
+      - "5555:5555/tcp"   # Beacon API
+    command:
+      - --chain=sepolia
+      - --prune.mode=archive
+      - --http
+      - --http.addr=0.0.0.0
+      - --http.port=8545
+      - --http.vhosts=*
+      - --http.corsdomain=*
+      - --ws
+      - --ws.port=8546
+      - --http.api=eth,erigon,engine,net,trace,admin,ots,web3,txpool,debug
+      - --beacon.api.addr=0.0.0.0
+      - --beacon.api.port=5555
+      - --beacon.api.cors.allow-methods=GET,POST,PUT,OPTIONS
+      - --beacon.api.cors.allow-origins=*
+      - --beacon.api=beacon,builder,config,debug,node,lighthouse
+      - --private.api.addr=127.0.0.1:9070
+      - --db.size.limit=200GB
+      - --state.cache=2048
+      - --caplin.blobs-no-pruning=true
+      - --caplin.states-archive=true
+      - --caplin.blocks-archive=true
+      - --caplin.blobs-archive=true
+      - --caplin.blobs-immediate-backfill=true
+      - --rpc.batch.concurrency=4
+      - --metrics
+      - --metrics.addr=0.0.0.0
+      - --metrics.port=6061
+      - --torrent.download.rate=900mb
+      - --nat=stun
+      - --netrestrict=10.0.0.0/8,172.16.0.0/12,100.64.0.0/10,198.18.0.0/15,169.254.0.0/16,172.16.0.0/12,192.0.2.0/24,192.88.99.0/24,192.168.0.0/16,198.18.0.0/15,198.51.100.0/24,203.0.113.0/24,224.0.0.0/4,240.0.0.0/4,192.0.0.0/24,0.0.0.0/8,255.255.255.255/32
+    networks:
+      - node
+    volumes:
+      - ./data/erigon:/home/erigon/ #  Erigon Datastore
+    stop_grace_period: 45s
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    user: ":"
+    restart: unless-stopped
+    networks:
+      - node
+    volumes:
+      - ./data/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    user: ":"
+    restart: unless-stopped
+    networks:
+      - node
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
+      - ./data/grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboard.yml
+      - ./data/grafana/grafana.ini:/etc/grafana/grafana.ini:ro
+      - ./data/grafana/dashboards:/etc/dashboards
+      - ./data/grafana:/var/lib/grafana
+    environment:
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/etc/dashboards/dashboard.json
+
+  loki:
+    image: grafana/loki:2.8.0
+    container_name: loki
+    hostname: loki
+    ports:
+      - "3200:3200"
+    networks:
+      - node
+    volumes:
+      - ./data/loki/loki-config.yaml:/etc/loki/loki-config.yaml
+    command: -config.file=/etc/loki/loki-config.yaml
+    restart: unless-stopped
+
+  promtail:
+    image: grafana/promtail:2.8.0
+    container_name: promtail
+    volumes:
+      - ./data/promtail/config.yml:/etc/promtail/config.yml
+      - /var/lib/docker/containers:/var/lib/docker/containers
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/log:/var/log:ro
+    command: |
+      --config.file=/etc/promtail/config.yml
+      --config.expand-env=true
+    networks:
+      - node
+    restart: unless-stopped
+
+networks:
+  node:
+    driver: bridge
