@@ -18,7 +18,7 @@ Additionally enabling the Beacon API will lead to a 6 GB higher RAM usage.
 
 - At least 8 cores, 16 threads
 - 32GB RAM or more
-- 1.92Tb - NVMe SSD  *will be in use 1.1TB (May 2025)*
+- 1.92Tb - NVMe SSD  *will be in use 1.2TB (May 2025)*
 
 **Full Node:**
 - At least 4 cores, 8 threads
