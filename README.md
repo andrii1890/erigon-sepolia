@@ -278,18 +278,18 @@ Baseline (ext4 SSD): 16Gb RAM sync takes 2 days, 32Gb - ~16 hours, 64Gb - ~6 hou
 ## Second Step 
 - **Clone this repo to your server, navigate to sepolia-rpc folder and choose what type of node you need**
     ```
-    git clone https://github.com/andrii1890/sepolia-rpc.git
-    cd sepolia-rpc/minimal
+    git clone https://github.com/andrii1890/erigon-sepolia.git
+    cd erigon-sepolia/minimal
     docker compose up -d
     ```
     ```
-    git clone https://github.com/andrii1890/sepolia-rpc.git
-    cd sepolia-rpc/full
+    git clone https://github.com/andrii1890/erigon-sepolia.git
+    cd erigon-sepolia/full
     docker compose up -d
     ```
     ```
-    git clone https://github.com/andrii1890/sepolia-rpc.git
-    cd sepolia-rpc/archive
+    git clone https://github.com/andrii1890/erigon-sepolia.git
+    cd erigon-sepolia/archive
     docker compose up -d
     ```
 
