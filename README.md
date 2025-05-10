@@ -119,7 +119,7 @@ Baseline (ext4 SSD): 16Gb RAM sync takes 2 days, 32Gb - ~16 hours, 64Gb - ~6 hou
     sudo systemctl daemon-reload
     sudo systemctl enable sepolia.service
     ```
-## Here you can choose what typer of node you need
+## Here you can choose what type of node you need
 <details>
 <summary>Minimal</summary>
  
