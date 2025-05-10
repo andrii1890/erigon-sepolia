@@ -300,14 +300,14 @@ Baseline (ext4 SSD): 16Gb RAM sync takes 2 days, 32Gb - ~16 hours, 64Gb - ~6 hou
 - **Add alias for docker logs**
     ```
     echo "#Sepolia Alias" >> $HOME/.profile
-    echo 'alias erigon.log="docker logs erigon -f"' >> $HOME/.profile
+    echo 'alias sepolia.log="docker logs erigon -f"' >> $HOME/.profile
     echo 'alias prometheus.log="docker logs prometheus -f"' >> $HOME/.profile
     echo 'alias grafana.log="docker logs grafana -f"' >> $HOME/.profile
     echo 'alias loki.log="docker logs loki -f"' >> $HOME/.profile
     echo 'alias promtail.log="docker logs promtail -f"' >> $HOME/.profile
     source $HOME/.profile
     ```
-    now you can simply find logs: erigon.log, prometheus.log, grafana.log, loki.log, promtail.log
+    now you can simply find logs: sepolia.log, prometheus.log, grafana.log, loki.log, promtail.log
   
 ### Also you can find your erigon logs in Sepolia Dashboard
 
