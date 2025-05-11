@@ -685,7 +685,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "rate(rpc_total{instance=\"kvm.acloud.pp.ua:6061\"}[$__rate_interval])",
+              "expr": "rate(rpc_total{instance=\"erigon:6061\"}[$__rate_interval])",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
