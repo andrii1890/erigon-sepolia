@@ -31,6 +31,7 @@ services:
       - --beacon.api.cors.allow-origins=*
       - --beacon.api=beacon,builder,config,debug,node,lighthouse
       - --private.api.addr=127.0.0.1:9070
+      - --caplin.blobs-immediate-backfill=true
       - --db.size.limit=200GB
       - --state.cache=512
       - --metrics
